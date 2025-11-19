@@ -145,18 +145,81 @@
         }
         
         input, textarea {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
             color: #fff;
-            padding: 1rem;
+            padding: 1.5rem 0;
             width: 100%;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             font-family: 'Inter Tight', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        input {
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        
+        input:hover, textarea:hover {
+            border-bottom-color: rgba(255, 255, 255, 0.4);
         }
         
         input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--teal);
+            border-bottom-color: var(--teal);
+        }
+        
+        input::placeholder,
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+        }
+        
+        input:focus::placeholder,
+        textarea:focus::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        
+        textarea {
+            resize: none !important;
+            min-height: auto;
+            line-height: 1.5;
+            overflow-y: auto;
+        }
+        
+        /* Декоративная линия под полем */
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .input-wrapper.input-field {
+            margin-left: 20px;
+        }
+        
+        .input-wrapper.textarea-field {
+            margin-left: 0;
+        }
+        
+        .input-wrapper input:focus ~ .input-line,
+        .input-wrapper textarea:focus ~ .input-line {
+            width: 100%;
+        }
+        
+        .input-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            width: 0;
+            background: var(--teal);
+            transition: width 0.4s ease;
         }
         
         button {
@@ -243,35 +306,20 @@
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease, width 0.15s ease, height 0.15s ease;
             transform: translate(-50%, -50%);
-        }
-        
-        .cursor-dot {
-            width: 4px;
-            height: 4px;
-            background: var(--red);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: background 0.2s ease;
-            transform: translate(-50%, -50%);
+            left: 0;
+            top: 0;
         }
         
         .cursor.hover {
-            transform: translate(-50%, -50%) scale(2);
+            transform: translate(-50%, -50%) scale(1.5);
             background: rgba(234, 47, 47, 0.1);
         }
         
         .cursor.on-red {
             border-color: #000;
             background: rgba(0, 0, 0, 0.1);
-        }
-        
-        .cursor.on-red .cursor-dot,
-        .cursor-dot.on-red {
-            background: #000;
         }
         
         body {
@@ -335,33 +383,6 @@
         }
         
         /* Enhanced form */
-        .form-group {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-        
-        .form-label {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            color: rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-        
-        input:focus + .form-label,
-        input:not(:placeholder-shown) + .form-label {
-            top: -0.5rem;
-            left: 0.5rem;
-            font-size: 0.75rem;
-            color: var(--teal);
-            background: #000;
-            padding: 0 0.5rem;
-        }
-        
-        input::placeholder {
-            color: transparent;
-        }
         
         /* Face fragment styles */
         .face-fragment {
@@ -427,7 +448,7 @@
         }
         
         @media (max-width: 768px) {
-            .cursor, .cursor-dot {
+            .cursor {
                 display: none;
             }
             
@@ -469,13 +490,60 @@
                 transform: translateY(20px) !important;
                 pointer-events: none;
             }
+            
+            /* Форма на мобилке - такой же стиль как на десктопе */
+            .modal-content {
+                padding: 2rem 1.5rem;
+                width: 95%;
+            }
+            
+            input, textarea {
+                padding: 1.25rem 0 !important;
+                font-size: 1rem !important;
+                background: transparent !important;
+                border: none !important;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+                color: #fff !important;
+                width: 100% !important;
+                margin-bottom: 2rem !important;
+            }
+            
+            input::placeholder,
+            textarea::placeholder {
+                color: rgba(255, 255, 255, 0.4) !important;
+                font-weight: 300 !important;
+                letter-spacing: 1px !important;
+                text-transform: uppercase !important;
+                font-size: 0.875rem !important;
+            }
+            
+            .input-wrapper.input-field {
+                margin-left: 20px !important;
+            }
+            
+            .input-wrapper.textarea-field {
+                margin-left: 0 !important;
+            }
+            
+            textarea {
+                resize: none !important;
+                min-height: auto !important;
+                line-height: 1.5 !important;
+            }
+        }
+        
+        /* Скрываем плавающую кнопку на десктопе тоже */
+        .floating-btn.hide-on-scroll {
+            opacity: 0 !important;
+            transform: translateY(20px) !important;
+            pointer-events: none;
+        }
         }
     </style>
 </head>
 <body>
     <!-- Custom Cursor -->
     <div class="cursor"></div>
-    <div class="cursor-dot"></div>
     
     <!-- Progress Bar -->
     <div class="progress-bar"></div>
@@ -830,15 +898,21 @@
             <button class="close-modal" onclick="closeModal()">&times;</button>
             <h2 class="font-space text-3xl font-bold text-white mb-8">Оставить заявку</h2>
             <form id="application-form" onsubmit="handleSubmit(event)">
-                <div class="form-group">
-                    <input type="text" name="name" id="name" placeholder=" " required>
-                    <label for="name" class="form-label">Имя</label>
+                <div class="input-wrapper input-field">
+                    <input type="text" name="name" id="name" placeholder="Имя" required>
+                    <div class="input-line"></div>
                 </div>
-                <div class="form-group">
-                    <input type="text" name="telegram" id="telegram" placeholder=" " required>
-                    <label for="telegram" class="form-label">Telegram</label>
+                <div class="input-wrapper input-field">
+                    <input type="text" name="telegram" id="telegram" placeholder="Telegram" required>
+                    <div class="input-line"></div>
                 </div>
-                <button type="submit" class="btn-primary w-full hover-lift">Отправить</button>
+                <div class="input-wrapper textarea-field">
+                    <textarea name="message" id="message" placeholder="Сообщение" required></textarea>
+                    <div class="input-line"></div>
+                </div>
+                <div style="display: flex; justify-content: center; align-items: center; margin-top: 2rem; width: 100%;">
+                    <button type="submit" class="btn-primary hover-lift" style="margin-left: 20px;">Отправить</button>
+                </div>
             </form>
             <div id="success-message" class="hidden mt-6 text-teal text-center">
                 Заявка отправлена. Мы свяжемся с вами.
@@ -850,15 +924,16 @@
         // GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
         
-        // Custom Cursor
+        // Custom Cursor - статичный
         const cursor = document.querySelector('.cursor');
-        const cursorDot = document.querySelector('.cursor-dot');
-        let mouseX = 0, mouseY = 0;
-        let cursorX = 0, cursorY = 0;
         
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            // Двигаем курсор сразу за мышью без задержки
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
             
             // Check if cursor is over red element
             const elementBelow = document.elementFromPoint(mouseX, mouseY);
@@ -901,27 +976,11 @@
                 
                 if (isOnRed) {
                     cursor.classList.add('on-red');
-                    cursorDot.classList.add('on-red');
                 } else {
                     cursor.classList.remove('on-red');
-                    cursorDot.classList.remove('on-red');
                 }
             }
         });
-        
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.1;
-            cursorY += (mouseY - cursorY) * 0.1;
-            
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            
-            cursorDot.style.left = mouseX + 'px';
-            cursorDot.style.top = mouseY + 'px';
-            
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
         
         // Cursor hover effects
         const hoverables = document.querySelectorAll('a, button, .hoverable, input');
@@ -950,33 +1009,25 @@
         const howToJoinSection = document.getElementById('how-to-join');
         
         window.addEventListener('scroll', () => {
-            if (window.innerWidth <= 768) {
-                // На мобилке: показываем только если не дошли до блока "Как попасть"
-                if (howToJoinSection) {
-                    const sectionTop = howToJoinSection.offsetTop;
-                    const sectionHeight = howToJoinSection.offsetHeight;
-                    const scrollPosition = window.scrollY + window.innerHeight;
-                    
-                    if (window.scrollY > 500 && scrollPosition < sectionTop + sectionHeight - 100) {
-                        floatingBtn.classList.add('visible');
-                        floatingBtn.classList.remove('hide-on-scroll');
-                    } else if (scrollPosition >= sectionTop + sectionHeight - 100) {
-                        floatingBtn.classList.remove('visible');
-                        floatingBtn.classList.add('hide-on-scroll');
-                    } else {
-                        floatingBtn.classList.remove('visible');
-                        floatingBtn.classList.remove('hide-on-scroll');
-                    }
+            if (howToJoinSection) {
+                const sectionTop = howToJoinSection.offsetTop;
+                const sectionHeight = howToJoinSection.offsetHeight;
+                const scrollPosition = window.scrollY + window.innerHeight;
+                
+                // Показываем кнопку только если прокрутили больше 500px и еще не дошли до блока "Как попасть"
+                if (window.scrollY > 500 && scrollPosition < sectionTop + sectionHeight - 100) {
+                    floatingBtn.classList.add('visible');
+                    floatingBtn.classList.remove('hide-on-scroll');
+                } else if (scrollPosition >= sectionTop + sectionHeight - 100) {
+                    // Скрываем когда дошли до блока "Как попасть"
+                    floatingBtn.classList.remove('visible');
+                    floatingBtn.classList.add('hide-on-scroll');
                 } else {
-                    // Fallback если секция не найдена
-                    if (window.scrollY > 500) {
-                        floatingBtn.classList.add('visible');
-                    } else {
-                        floatingBtn.classList.remove('visible');
-                    }
+                    floatingBtn.classList.remove('visible');
+                    floatingBtn.classList.remove('hide-on-scroll');
                 }
             } else {
-                // На десктопе: обычное поведение
+                // Fallback если секция не найдена
                 if (window.scrollY > 500) {
                     floatingBtn.classList.add('visible');
                 } else {
@@ -1096,34 +1147,34 @@
             });
         });
         
-        // Animate numbers in "How to join" section with rotation
+        // Animate numbers in "How to join" section - простая анимация появления
         gsap.utils.toArray('.big-number').forEach((num) => {
             gsap.from(num, {
-                scale: 0.3,
-                rotation: -180,
-                duration: 1.2,
-                ease: 'back.out(1.7)',
+                opacity: 0,
+                y: 20,
+                duration: 0.6,
+                ease: 'power2.out',
                 scrollTrigger: {
                     trigger: num,
-                    start: 'top 80%',
+                    start: 'top 85%',
                     toggleActions: 'play none none reverse'
                 }
             });
         });
         
-        // Animate circles in "How to join" section
+        // Animate circles in "How to join" section - простая анимация появления
         gsap.utils.toArray('.big-number').forEach((num, i) => {
             const circle = num.parentElement.querySelector('.bg-red, .bg-teal, .bg-deep-blue');
             if (circle) {
                 gsap.from(circle, {
-                    scale: 0,
-                    rotation: 360,
-                    duration: 1,
-                    delay: i * 0.2,
-                    ease: 'elastic.out(1, 0.5)',
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 0.5,
+                    delay: i * 0.15,
+                    ease: 'power2.out',
                     scrollTrigger: {
                         trigger: num,
-                        start: 'top 80%',
+                        start: 'top 85%',
                         toggleActions: 'play none none reverse'
                     }
                 });
