@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Закрытый клуб | Андрей Родионов</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        :root {
+            --red: #EA2F2F;
+            --teal: #2EC6BE;
+            --deep-blue: #0C2A6D;
+            --light-blue: #DFF1FF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter Tight', sans-serif;
+            overflow-x: hidden;
+            background: #000;
+            color: #fff;
+        }
+        
+        .font-space {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .text-red { color: var(--red); }
+        .text-teal { color: var(--teal); }
+        .text-deep-blue { color: var(--deep-blue); }
+        .text-light-blue { color: var(--light-blue); }
+        
+        .bg-red { background-color: var(--red); }
+        .bg-teal { background-color: var(--teal); }
+        .bg-deep-blue { background-color: var(--deep-blue); }
+        .bg-light-blue { background-color: var(--light-blue); }
+        
+        /* Swirl texture effect */
+        .swirl-bg {
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(46, 198, 190, 0.4) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 70%, rgba(234, 47, 47, 0.25) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 50%, rgba(12, 42, 109, 0.15) 0%, transparent 70%),
+                var(--teal);
+            position: relative;
+        }
+        
+        .swirl-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+            opacity: 0.5;
+        }
+        
+        /* Geometric shapes */
+        .geo-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            position: absolute;
+            opacity: 0.8;
+        }
+        
+        .geo-rect {
+            position: absolute;
+            opacity: 0.9;
+        }
+        
+        /* Placeholder for images */
+        .img-placeholder {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .img-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.3) 100%);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        input, textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 1rem;
+            width: 100%;
+            margin-bottom: 1rem;
+            font-family: 'Inter Tight', sans-serif;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+        }
+        
+        button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--red);
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .btn-primary:hover {
+            background: #c72525;
+            transform: translateY(-2px);
+        }
+        
+        /* Number styling */
+        .big-number {
+            font-size: 8rem;
+            font-weight: 700;
+            line-height: 1;
+            opacity: 0.2;
+        }
+        
+        @media (max-width: 768px) {
+            .big-number {
+                font-size: 4rem;
+            }
+            
+            .geo-circle, .geo-rect {
+                opacity: 0.5 !important;
+            }
+        }
+        
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Selection color */
+        ::selection {
+            background: var(--red);
+            color: #fff;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--red);
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c72525;
+        }
+        
+        /* Firefox scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--red) #000;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--red);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            transform: translate(-50%, -50%);
+        }
+        
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--red);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: background 0.2s ease;
+            transform: translate(-50%, -50%);
+        }
+        
+        .cursor.hover {
+            transform: translate(-50%, -50%) scale(2);
+            background: rgba(234, 47, 47, 0.1);
+        }
+        
+        .cursor.on-red {
+            border-color: #000;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .cursor.on-red .cursor-dot,
+        .cursor-dot.on-red {
+            background: #000;
+        }
+        
+        body {
+            cursor: none;
+        }
+        
+        a, button, input, .hoverable {
+            cursor: none !important;
+        }
+        
+        /* Section transitions */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            margin: 0;
+        }
+        
+        /* Progress indicator */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--red);
+            z-index: 9998;
+            transform-origin: left;
+        }
+        
+        /* Floating button */
+        .floating-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Enhanced hover effects */
+        .hover-lift {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+        
+        .geo-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .geo-hover:hover {
+            transform: scale(1.1) rotate(5deg);
+            opacity: 1 !important;
+        }
+        
+        /* Enhanced form */
+        .form-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .form-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        
+        input:focus + .form-label,
+        input:not(:placeholder-shown) + .form-label {
+            top: -0.5rem;
+            left: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--teal);
+            background: #000;
+            padding: 0 0.5rem;
+        }
+        
+        input::placeholder {
+            color: transparent;
+        }
+        
+        /* Face fragment styles */
+        .face-fragment {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .face-fragment::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 40% 35%, rgba(255,255,255,0.15) 0%, transparent 40%),
+                radial-gradient(circle at 60% 65%, rgba(0,0,0,0.3) 0%, transparent 40%);
+            mix-blend-mode: overlay;
+        }
+        
+        /* Liquid texture */
+        .liquid-texture {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .liquid-texture::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%),
+                radial-gradient(circle at 80% 20%, rgba(234, 47, 47, 0.15) 0%, transparent 50%);
+            animation: liquidMove 20s infinite ease-in-out;
+        }
+        
+        @keyframes liquidMove {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-30px, 30px) rotate(240deg); }
+        }
+        
+        /* Typography enhancements */
+        .text-huge {
+            font-size: clamp(4rem, 12vw, 12rem);
+            line-height: 0.9;
+        }
+        
+        .text-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        
+        /* Art overlay effects */
+        .art-overlay {
+            mix-blend-mode: multiply;
+            opacity: 0.8;
+        }
+        
+        /* Smooth section fade */
+        section {
+            position: relative;
+        }
+        
+        @media (max-width: 768px) {
+            .cursor, .cursor-dot {
+                display: none;
+            }
+            
+            body {
+                cursor: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+    
+    <!-- Floating Button -->
+    <button class="floating-btn btn-primary" onclick="openModal()">
+        Оставить заявку
+    </button>
+    
+    <!-- HERO BLOCK -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+        <!-- Art collage background -->
+        <div class="absolute inset-0">
+            <!-- Red rectangle at top -->
+            <div class="geo-rect bg-red w-full h-2/5 top-0 left-0 geo-hover"></div>
+            
+            <!-- Side colored strips -->
+            <div class="geo-rect bg-light-blue w-24 h-full top-0 left-0 opacity-30 geo-hover"></div>
+            <div class="geo-rect bg-light-blue w-24 h-full top-0 right-0 opacity-30 geo-hover"></div>
+            
+            <!-- Geometric shapes with hover -->
+            <div class="geo-circle bg-teal top-32 right-32 opacity-25 geo-hover" style="width: 250px; height: 250px;"></div>
+            <div class="geo-rect bg-deep-blue w-40 h-[500px] bottom-0 left-16 opacity-35 geo-hover"></div>
+            <div class="geo-rect bg-light-blue w-72 h-40 top-1/3 left-1/4 opacity-15 geo-hover"></div>
+            <div class="geo-circle bg-red bottom-32 right-1/4 opacity-20 geo-hover" style="width: 180px; height: 180px;"></div>
+            
+            <!-- Red graphic block overlay (like in references) -->
+            <div class="absolute top-1/4 right-1/4 w-32 h-32 bg-red opacity-60 art-overlay"></div>
+            
+            <!-- Black and white silhouette placeholder - man standing -->
+            <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[400px] h-[500px] img-placeholder face-fragment">
+                <div class="absolute inset-0 flex items-end justify-center">
+                    <!-- Silhouette of a person -->
+                    <div class="relative w-40 h-[450px] mb-0">
+                        <!-- Head -->
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-24 h-24 bg-gradient-to-b from-gray-900 to-black rounded-full"></div>
+                        <!-- Body -->
+                        <div class="absolute top-20 left-1/2 transform -translate-x-1/2 w-32 h-80 bg-gradient-to-b from-gray-800 via-gray-900 to-black"></div>
+                        <!-- Legs -->
+                        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-32 bg-black"></div>
+                        <div class="absolute bottom-0 left-1/2 transform translate-x-4 w-8 h-32 bg-black"></div>
+                    </div>
+                </div>
+                <!-- Red bar overlay (like in references) -->
+                <div class="absolute top-1/3 left-0 right-0 h-8 bg-red opacity-70"></div>
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="relative z-10 text-center px-4">
+            <h1 class="font-space text-huge font-bold text-white mb-6 hoverable" id="hero-title" style="letter-spacing: -0.02em;">
+                ЗАКРЫТЫЙ КЛУБ
+            </h1>
+            <p class="font-space text-2xl md:text-3xl lg:text-4xl text-white mb-4 hoverable" id="hero-subtitle" style="font-style: italic; font-weight: 300;">
+                «То, что остаётся за словами»
+            </p>
+            <p class="text-sm md:text-base text-white mb-12 hoverable" id="hero-author" style="letter-spacing: 0.1em;">
+                Автор: Андрей Родионов, психотерапевт
+            </p>
+            <button class="btn-primary hoverable hover-lift" id="hero-button" onclick="openModal()">
+                Оставить заявку
+            </button>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+    
+    <!-- ABOUT BLOCK -->
+    <section class="min-h-screen flex items-center py-20 px-4 md:px-8 bg-black">
+        <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-0 items-stretch">
+            <!-- Left: Colored rectangle -->
+            <div class="h-full min-h-[700px] bg-red relative flex items-center justify-center liquid-texture">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-40 h-40 bg-white opacity-15 rounded-full hover-lift"></div>
+                </div>
+                <!-- Geometric accent with hover -->
+                <div class="absolute top-20 right-10 w-24 h-24 border-2 border-white opacity-20 rotate-45 geo-hover"></div>
+                <div class="absolute bottom-20 left-10 w-16 h-16 bg-white opacity-10 geo-hover"></div>
+                <!-- Vertical text accent -->
+                <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-vertical font-space text-white opacity-10 text-sm">
+                    ИСКУССТВО
+                </div>
+            </div>
+            
+            <!-- Right: Text with image - magazine style -->
+            <div class="bg-black p-12 md:p-16 flex flex-col justify-center space-y-12">
+                <!-- Image placeholder - black and white portrait with face fragment -->
+                <div class="img-placeholder h-80 mb-4 relative face-fragment hover-lift">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <!-- Abstract face silhouette with more detail -->
+                        <div class="relative w-48 h-64">
+                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-gradient-to-b from-gray-800 to-transparent rounded-full">
+                                <!-- Eye detail -->
+                                <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black rounded-full"></div>
+                            </div>
+                            <div class="absolute top-24 left-1/2 transform -translate-x-1/2 w-40 h-40 bg-gradient-to-b from-transparent via-gray-700 to-gray-900"></div>
+                        </div>
+                    </div>
+                    <!-- Red graphic block overlay -->
+                    <div class="absolute top-1/4 right-0 w-16 h-24 bg-red opacity-60 art-overlay"></div>
+                </div>
+                
+                <div class="space-y-8 text-lg leading-[1.8]">
+                    <p class="font-space text-3xl md:text-5xl font-light text-white hover-lift" style="letter-spacing: -0.01em;">
+                        Закрытый клуб — это пространство для глубокого исследования внутреннего мира через призму психотерапии и искусства.
+                    </p>
+                    <p class="text-white text-base md:text-lg hover-lift" style="line-height: 1.9; font-weight: 400;">
+                        Здесь мы говорим о том, что обычно остаётся за словами: о чувствах, которые сложно выразить, о переживаниях, которые не укладываются в привычные рамки, о том внутреннем опыте, который формирует нашу реальность.
+                    </p>
+                    <p class="text-white text-base md:text-lg hover-lift" style="line-height: 1.9;">
+                        Это не лекции и не тренинги. Это живой диалог, где каждый участник может поделиться своим опытом и услышать других. Где мы вместе исследуем границы понимания и находим новые способы говорить о самом важном.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+    
+    <!-- FOR WHOM BLOCK -->
+    <section class="min-h-screen flex items-center py-20 px-4 md:px-8 swirl-bg relative">
+        <div class="max-w-4xl mx-auto w-full relative z-10">
+            <div class="max-w-lg mx-auto space-y-10 text-white">
+                <h2 class="font-space text-5xl md:text-8xl font-bold mb-16 hover-lift" style="letter-spacing: -0.02em;">ДЛЯ КОГО</h2>
+                
+                <div class="space-y-8 text-lg md:text-xl leading-[1.9] font-light">
+                    <p class="hover-lift">
+                        Для тех, кто ищет глубину в общении и готов исследовать свой внутренний мир.
+                    </p>
+                    <p class="hover-lift" style="font-weight: 400;">
+                        Для тех, кому важно понимать не только себя, но и других людей через призму психологии и искусства.
+                    </p>
+                    <p class="hover-lift">
+                        Для тех, кто устал от поверхностных разговоров и хочет найти пространство для настоящего диалога.
+                    </p>
+                    <p class="hover-lift">
+                        Для тех, кто готов к честности и открытости в безопасной, поддерживающей атмосфере.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative elements with hover -->
+        <div class="absolute top-20 right-10 w-32 h-32 border-2 border-white opacity-10 rounded-full geo-hover"></div>
+        <div class="absolute bottom-20 left-10 w-24 h-24 bg-white opacity-5 geo-hover"></div>
+        <!-- Face fragment overlay -->
+        <div class="absolute top-1/3 right-1/4 w-20 h-20 img-placeholder opacity-20 rounded-full face-fragment">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-12 h-12 bg-gradient-to-br from-gray-700 to-black rounded-full"></div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+    
+    <!-- WHAT MAKES IT DIFFERENT -->
+    <section class="min-h-screen flex items-center py-20 px-4 md:px-8 bg-red relative overflow-hidden">
+        <!-- Art element - abstract silhouette with face fragment -->
+        <div class="absolute right-0 top-0 bottom-0 w-2/5 img-placeholder opacity-25 face-fragment">
+            <div class="absolute inset-0 flex items-center justify-center">
+                <!-- Abstract geometric composition -->
+                <div class="relative w-80 h-80">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-48 h-48 border-4 border-white rounded-full opacity-40 geo-hover"></div>
+                    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-white opacity-20 rotate-45 geo-hover"></div>
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 border-2 border-white opacity-30 geo-hover"></div>
+                </div>
+            </div>
+            <!-- Face fragment overlay -->
+            <div class="absolute top-1/4 left-1/4 w-24 h-24 bg-gradient-to-br from-gray-800 to-black rounded-full opacity-40"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto w-full relative z-10">
+            <div class="max-w-2xl">
+                <h2 class="font-space text-5xl md:text-8xl font-bold text-white mb-16 hover-lift" style="letter-spacing: -0.02em;">ЧЕМ ОТЛИЧАЕТСЯ</h2>
+                
+                <div class="space-y-10 text-white text-lg md:text-xl leading-[1.9] font-light">
+                    <p class="hover-lift">
+                        Это не образовательный проект в привычном смысле. Здесь нет готовых ответов и универсальных рецептов.
+                    </p>
+                    <p class="hover-lift">
+                        Вместо этого — пространство для исследования, где каждый вопрос важен, а каждый ответ рождается в диалоге.
+                    </p>
+                    <p class="hover-lift" style="font-weight: 400;">
+                        Мы не учим, как жить правильно. Мы создаём условия, чтобы каждый мог найти свой собственный путь к пониманию.
+                    </p>
+                    <p class="hover-lift">
+                        Искусство здесь — не иллюстрация, а полноценный язык, на котором можно говорить о том, что сложно выразить словами.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+    
+    <!-- WHAT WE'LL EXPLORE -->
+    <section class="min-h-screen py-20 px-4 md:px-8 bg-black relative overflow-hidden">
+        <!-- Background decorative elements -->
+        <div class="absolute top-20 left-10 w-64 h-64 border border-white opacity-5 rounded-full"></div>
+        <div class="absolute bottom-20 right-10 w-48 h-48 bg-teal opacity-5 rounded-full"></div>
+        
+        <div class="max-w-6xl mx-auto relative z-10">
+            <h2 class="font-space text-5xl md:text-7xl font-bold text-white mb-20 text-center" style="letter-spacing: -0.02em;">МЫ БУДЕМ РАЗБИРАТЬ</h2>
+            
+            <div class="grid md:grid-cols-2 gap-16">
+                <!-- Item 1 -->
+                <div class="flex gap-8 items-start group">
+                    <div class="flex-shrink-0 relative">
+                        <div class="w-28 h-28 bg-teal rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                            <div class="w-20 h-20 bg-white opacity-20 rounded-full"></div>
+                        </div>
+                        <!-- Small art element - face fragment -->
+                        <div class="absolute -top-2 -right-2 w-12 h-12 img-placeholder opacity-60 rounded-full overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="w-8 h-8 bg-gradient-to-br from-gray-700 to-black rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">Внутренний опыт</h3>
+                        <p class="text-white text-base md:text-lg leading-relaxed">Как мы переживаем эмоции, как формируются наши чувства, что происходит внутри, когда мы сталкиваемся с жизненными вызовами.</p>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="flex gap-8 items-start group">
+                    <div class="flex-shrink-0 relative">
+                        <div class="w-28 h-28 bg-red rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                            <div class="w-14 h-14 bg-white opacity-20 rotate-45"></div>
+                        </div>
+                        <!-- Geometric texture -->
+                        <div class="absolute -bottom-2 -left-2 w-10 h-10 border-2 border-white opacity-30"></div>
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">Отношения</h3>
+                        <p class="text-white text-base md:text-lg leading-relaxed">Как мы строим связи с другими, что мешает и что помогает в общении, как понимать и быть понятым.</p>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="flex gap-8 items-start group">
+                    <div class="flex-shrink-0 relative">
+                        <div class="w-28 h-28 bg-deep-blue rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                            <div class="w-20 h-20 border-2 border-white opacity-30"></div>
+                        </div>
+                        <!-- Circle accent -->
+                        <div class="absolute top-0 right-0 w-6 h-6 bg-white opacity-20 rounded-full"></div>
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">Идентичность</h3>
+                        <p class="text-white text-base md:text-lg leading-relaxed">Кто мы на самом деле, как формируется наше представление о себе, что значит быть собой в современном мире.</p>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="flex gap-8 items-start group">
+                    <div class="flex-shrink-0 relative">
+                        <div class="w-28 h-28 bg-light-blue rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                            <div class="w-20 h-20 bg-white opacity-20 rotate-45"></div>
+                        </div>
+                        <!-- Texture element -->
+                        <div class="absolute -top-1 -left-1 w-8 h-8 border border-white opacity-25 rotate-45"></div>
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">Творчество и смысл</h3>
+                        <p class="text-white text-base md:text-lg leading-relaxed">Как искусство помогает понимать себя, где искать смысл, как творчество становится способом исследования внутреннего мира.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FORMAT -->
+    <section class="min-h-screen flex items-center py-20 px-4 md:px-8 bg-deep-blue relative overflow-hidden">
+        <!-- Decorative grid pattern -->
+        <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
+        
+        <!-- Geometric accents with hover -->
+        <div class="absolute top-20 right-20 w-32 h-32 border border-white opacity-10 rounded-full geo-hover"></div>
+        <div class="absolute bottom-20 left-20 w-24 h-24 bg-white opacity-5 geo-hover"></div>
+        
+        <div class="max-w-6xl mx-auto w-full relative z-10">
+            <h2 class="font-space text-5xl md:text-8xl font-bold text-white mb-20 hover-lift" style="letter-spacing: -0.02em;">ФОРМАТ</h2>
+            
+            <div class="space-y-14 text-white text-lg md:text-xl leading-[1.9] max-w-3xl font-light">
+                <p class="hover-lift">
+                    Встречи проходят в закрытом формате для ограниченного круга участников. Каждая встреча — это 2-3 часа глубокого диалога, где мы исследуем конкретную тему через призму психотерапии и искусства.
+                </p>
+                <p class="hover-lift" style="font-weight: 400;">
+                    Участники могут делиться своим опытом, задавать вопросы, участвовать в обсуждении. Никаких обязательных заданий или домашних работ — только живое общение и исследование.
+                </p>
+                <p class="hover-lift">
+                    Все встречи проходят онлайн, что позволяет участвовать из любой точки мира. Группа формируется заранее, чтобы обеспечить атмосферу доверия и открытости.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+    
+    <!-- HOW TO JOIN -->
+    <section class="min-h-screen flex items-center py-20 px-4 md:px-8 bg-black">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="font-space text-5xl md:text-7xl font-bold text-white mb-20 text-center hover-lift" style="letter-spacing: -0.02em;">КАК ПОПАСТЬ</h2>
+            
+            <div class="grid md:grid-cols-3 gap-12 items-center">
+                <!-- Step 1 -->
+                <div class="text-center relative hover-lift">
+                    <div class="big-number font-space text-white absolute -top-8 left-1/2 transform -translate-x-1/2">01</div>
+                    <div class="mt-16 space-y-4">
+                        <div class="w-32 h-32 mx-auto bg-red rounded-full flex items-center justify-center geo-hover">
+                            <div class="w-24 h-24 bg-white opacity-20 rounded-full"></div>
+                        </div>
+                        <p class="text-white mt-8">Оставьте заявку через форму</p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="text-center relative hover-lift">
+                    <div class="big-number font-space text-white absolute -top-8 left-1/2 transform -translate-x-1/2">02</div>
+                    <div class="mt-16 space-y-4">
+                        <div class="w-32 h-32 mx-auto bg-teal rounded-full flex items-center justify-center geo-hover">
+                            <div class="w-24 h-24 bg-white opacity-20 rounded-full"></div>
+                        </div>
+                        <p class="text-white mt-8">Мы свяжемся с вами для короткого собеседования</p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="text-center relative hover-lift">
+                    <div class="big-number font-space text-white absolute -top-8 left-1/2 transform -translate-x-1/2">03</div>
+                    <div class="mt-16 space-y-4">
+                        <div class="w-32 h-32 mx-auto bg-deep-blue rounded-full flex items-center justify-center geo-hover">
+                            <div class="w-24 h-24 bg-white opacity-20 rounded-full"></div>
+                        </div>
+                        <p class="text-white mt-8">Приглашение в закрытую группу</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16">
+                <button class="btn-primary hover-lift" onclick="openModal()">
+                    Оставить заявку
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- MODAL -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <h2 class="font-space text-3xl font-bold text-white mb-8">Оставить заявку</h2>
+            <form id="application-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <input type="text" name="name" id="name" placeholder=" " required>
+                    <label for="name" class="form-label">Имя</label>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="telegram" id="telegram" placeholder=" " required>
+                    <label for="telegram" class="form-label">Telegram</label>
+                </div>
+                <button type="submit" class="btn-primary w-full hover-lift">Отправить</button>
+            </form>
+            <div id="success-message" class="hidden mt-6 text-teal text-center">
+                Заявка отправлена. Мы свяжемся с вами.
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Check if cursor is over red element
+            const elementBelow = document.elementFromPoint(mouseX, mouseY);
+            if (elementBelow) {
+                // Check if element or its parents have red background
+                let currentElement = elementBelow;
+                let isOnRed = false;
+                
+                while (currentElement && currentElement !== document.body) {
+                    const computedStyle = window.getComputedStyle(currentElement);
+                    const bgColor = computedStyle.backgroundColor;
+                    const bgClass = currentElement.classList;
+                    
+                    // Check if element has red background class
+                    if (bgClass.contains('bg-red')) {
+                        isOnRed = true;
+                        break;
+                    }
+                    
+                    // Check if element has red background color (various formats)
+                    if (bgColor && bgColor !== 'rgba(0, 0, 0, 0)' && bgColor !== 'transparent') {
+                        // Extract RGB values
+                        const rgbMatch = bgColor.match(/(\d+),\s*(\d+),\s*(\d+)/);
+                        if (rgbMatch) {
+                            const r = parseInt(rgbMatch[1]);
+                            const g = parseInt(rgbMatch[2]);
+                            const b = parseInt(rgbMatch[3]);
+                            
+                            // Check if color is close to red (#EA2F2F = rgb(234, 47, 47))
+                            // Allow some tolerance for opacity variations
+                            if (r > 200 && r <= 255 && g < 100 && b < 100) {
+                                isOnRed = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    currentElement = currentElement.parentElement;
+                }
+                
+                if (isOnRed) {
+                    cursor.classList.add('on-red');
+                    cursorDot.classList.add('on-red');
+                } else {
+                    cursor.classList.remove('on-red');
+                    cursorDot.classList.remove('on-red');
+                }
+            }
+        });
+        
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.1;
+            cursorY += (mouseY - cursorY) * 0.1;
+            
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+        
+        // Cursor hover effects
+        const hoverables = document.querySelectorAll('a, button, .hoverable, input');
+        hoverables.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                // Don't add hover class if on red
+                if (!cursor.classList.contains('on-red')) {
+                    cursor.classList.add('hover');
+                }
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+        
+        // Progress Bar
+        const progressBar = document.querySelector('.progress-bar');
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            progressBar.style.transform = `scaleX(${scrolled / 100})`;
+        });
+        
+        // Floating Button
+        const floatingBtn = document.querySelector('.floating-btn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                floatingBtn.classList.add('visible');
+            } else {
+                floatingBtn.classList.remove('visible');
+            }
+        });
+        
+        // Hero animations
+        window.addEventListener('load', () => {
+            gsap.fromTo('#hero-title', 
+                { y: 50 },
+                { y: 0, duration: 1.2, ease: 'power3.out' }
+            );
+            
+            gsap.fromTo('#hero-subtitle', 
+                { y: 30 },
+                { y: 0, duration: 1.2, delay: 0.3, ease: 'power3.out' }
+            );
+            
+            gsap.fromTo('#hero-author', 
+                { y: 20 },
+                { y: 0, duration: 1, delay: 0.6, ease: 'power3.out' }
+            );
+            
+            gsap.fromTo('#hero-button', 
+                { y: 20 },
+                { y: 0, duration: 1, delay: 0.9, ease: 'power3.out' }
+            );
+            
+            // Parallax for geometric shapes
+            gsap.to('.geo-circle', {
+                y: -100,
+                scrollTrigger: {
+                    trigger: 'section',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1
+                }
+            });
+            
+            gsap.to('.geo-rect', {
+                y: -80,
+                scrollTrigger: {
+                    trigger: 'section',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1
+                }
+            });
+        });
+        
+        // Enhanced scroll animations for sections with fade transitions
+        gsap.utils.toArray('section').forEach((section, i) => {
+            if (i > 0) {
+                const headings = section.querySelectorAll('h2');
+                const paragraphs = section.querySelectorAll('p');
+                const images = section.querySelectorAll('.img-placeholder, .face-fragment');
+                
+                if (headings.length > 0) {
+                    gsap.from(headings, {
+                        y: 50,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: section,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    });
+                }
+                
+                if (paragraphs.length > 0) {
+                    gsap.from(paragraphs, {
+                        y: 30,
+                        stagger: 0.2,
+                        duration: 0.8,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: section,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    });
+                }
+                
+                if (images.length > 0) {
+                    gsap.from(images, {
+                        scale: 0.9,
+                        duration: 1,
+                        stagger: 0.1,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: section,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    });
+                }
+            }
+        });
+        
+        // Parallax for geometric elements
+        gsap.utils.toArray('.geo-circle, .geo-rect').forEach((el) => {
+            gsap.to(el, {
+                y: (i) => i * -30,
+                scrollTrigger: {
+                    trigger: el.closest('section'),
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1
+                }
+            });
+        });
+        
+        // Animate numbers in "How to join" section with rotation
+        gsap.utils.toArray('.big-number').forEach((num) => {
+            gsap.from(num, {
+                scale: 0.3,
+                rotation: -180,
+                duration: 1.2,
+                ease: 'back.out(1.7)',
+                scrollTrigger: {
+                    trigger: num,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+        });
+        
+        // Animate circles in "How to join" section
+        gsap.utils.toArray('.big-number').forEach((num, i) => {
+            const circle = num.parentElement.querySelector('.bg-red, .bg-teal, .bg-deep-blue');
+            if (circle) {
+                gsap.from(circle, {
+                    scale: 0,
+                    rotation: 360,
+                    duration: 1,
+                    delay: i * 0.2,
+                    ease: 'elastic.out(1, 0.5)',
+                    scrollTrigger: {
+                        trigger: num,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                });
+            }
+        });
+        
+        // Enhanced Modal functions
+        function openModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            gsap.from('.modal-content', {
+                scale: 0.8,
+                y: 50,
+                duration: 0.4,
+                ease: 'back.out(1.7)'
+            });
+            
+            gsap.from('.modal-content input, .modal-content button', {
+                x: -20,
+                stagger: 0.1,
+                delay: 0.2,
+                duration: 0.3
+            });
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            const form = document.getElementById('application-form');
+            const successMessage = document.getElementById('success-message');
+            
+            gsap.to('.modal-content', {
+                scale: 0.9,
+                y: 20,
+                duration: 0.3,
+                ease: 'power2.in',
+                onComplete: () => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    form.reset();
+                    form.style.display = 'block';
+                    successMessage.classList.add('hidden');
+                }
+            });
+        }
+        
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const successMessage = document.getElementById('success-message');
+            
+            // Animate form out
+            gsap.to(form, {
+                y: -20,
+                duration: 0.3,
+                onComplete: () => {
+                    form.style.display = 'none';
+                    successMessage.classList.remove('hidden');
+                    gsap.from(successMessage, {
+                        scale: 0.8,
+                        duration: 0.4,
+                        ease: 'back.out(1.7)'
+                    });
+                }
+            });
+            
+            // Auto close after 3 seconds
+            setTimeout(() => {
+                closeModal();
+            }, 3000);
+        }
+        
+        // Close modal on outside click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
