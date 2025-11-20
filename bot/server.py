@@ -49,17 +49,17 @@ def submit_application():
     data = request.get_json() or {}
 
     name = data.get('name', '').strip()
-    telegram = data.get('telegram', '').strip()
+    phone = data.get('phone', '').strip()
     message_text = data.get('message', '').strip()
 
-    if not all([name, telegram, message_text]):
+    if not all([name, phone, message_text]):
         return jsonify({'success': False, 'error': 'Все поля обязательны'}), 400
 
     formatted_message = f"""
 <b>📋 Новая заявка</b>
 
 <b>Имя:</b> {escape_html(name)}
-<b>Telegram:</b> {escape_html(telegram)}
+<b>Телефон:</b> {escape_html(phone)}
 <b>Сообщение:</b>
 {escape_html(message_text)}
 
