@@ -561,6 +561,12 @@
             transform: translateY(20px) !important;
             pointer-events: none;
         }
+        
+        @media (max-width: 1024px) {
+            .about-art-wrapper {
+                display: none !important;
+            }
+        }
         }
     </style>
 </head>
@@ -638,7 +644,7 @@
     <section class="min-h-screen flex items-center py-20 px-4 md:px-8 bg-black">
         <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-0 items-stretch">
             <!-- Left: Colored rectangle -->
-            <div class="h-full min-h-[700px] bg-red relative flex items-center justify-center liquid-texture about-art">
+            <div class="about-art-wrapper hidden lg:flex h-full min-h-[700px] bg-red relative items-center justify-center liquid-texture about-art">
                 <div class="absolute inset-0 flex items-center justify-center">
                     <div class="w-40 h-40 bg-white opacity-15 rounded-full hover-lift"></div>
                 </div>
@@ -739,10 +745,10 @@
         </div>
         
         <div class="max-w-6xl mx-auto w-full relative z-10">
-            <div class="block lg:hidden w-full mb-10">
-                <div class="relative w-full">
-                    <img src="images/2.jpg" alt="Андрей Родионов" class="w-full h-auto object-cover">
-                    <div class="absolute inset-0 bg-teal/30 mix-blend-color"></div>
+            <div class="block lg:hidden w-full mb-10 -mx-4 sm:mx-0">
+                <div class="relative w-full h-[60vh] min-h-[320px]">
+                    <img src="images/2.jpg" alt="Андрей Родионов" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-teal/25 mix-blend-color"></div>
                 </div>
             </div>
             <h2 class="font-space text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-10 hover-lift leading-none" style="letter-spacing: -0.02em; text-transform: uppercase;">
