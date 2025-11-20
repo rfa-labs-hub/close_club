@@ -19,10 +19,14 @@
     
     <style>
         :root {
-            --red: #EA2F2F;
-            --teal: #2EC6BE;
-            --deep-blue: #0C2A6D;
-            --light-blue: #DFF1FF;
+            --teal: #05B5A3;
+            --red: #D7263D;
+            --black: #0D0D0D;
+            --white: #FFFFFF;
+            --deep-blue: #1F2428;
+            --light-blue: #F4EDE4;
+            --beige: #F4EDE4;
+            --graphite: #1F2428;
         }
         
         * {
@@ -34,8 +38,8 @@
         body {
             font-family: 'Inter Tight', sans-serif;
             overflow-x: hidden;
-            background: #000;
-            color: #fff;
+            background: var(--black);
+            color: var(--white);
         }
         
         .font-space {
@@ -46,11 +50,16 @@
         .text-teal { color: var(--teal); }
         .text-deep-blue { color: var(--deep-blue); }
         .text-light-blue { color: var(--light-blue); }
+        .text-beige { color: var(--beige); }
+        .text-graphite { color: var(--graphite); }
         
         .bg-red { background-color: var(--red); }
         .bg-teal { background-color: var(--teal); }
         .bg-deep-blue { background-color: var(--deep-blue); }
         .bg-light-blue { background-color: var(--light-blue); }
+        .bg-beige { background-color: var(--beige); }
+        .bg-graphite { background-color: var(--graphite); }
+        .bg-black { background-color: var(--black) !important; }
         
         /* Swirl texture effect */
         .swirl-bg {
@@ -272,6 +281,12 @@
             color: #fff;
         }
         
+        .selection-teal ::selection {
+            background: var(--teal);
+            color: #000;
+        }
+        
+        
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
@@ -382,6 +397,10 @@
             opacity: 1 !important;
         }
         
+        .no-margin {
+            margin: 0;
+        }
+
         /* Enhanced form */
         
         /* Face fragment styles */
@@ -630,31 +649,25 @@
             
             <!-- Right: Text with image - magazine style -->
             <div class="bg-black p-12 md:p-16 flex flex-col justify-center space-y-12">
-                <!-- Image placeholder - black and white portrait with face fragment -->
-                <div class="img-placeholder h-80 mb-4 relative face-fragment hover-lift">
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <!-- Abstract face silhouette with more detail -->
-                        <div class="relative w-48 h-64">
-                            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-gradient-to-b from-gray-800 to-transparent rounded-full">
-                                <!-- Eye detail -->
-                                <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black rounded-full"></div>
-                            </div>
-                            <div class="absolute top-24 left-1/2 transform -translate-x-1/2 w-40 h-40 bg-gradient-to-b from-transparent via-gray-700 to-gray-900"></div>
-                        </div>
-                    </div>
-                    <!-- Red graphic block overlay -->
+                <!-- Image with author -->
+                <div class="relative h-80 mb-4 overflow-hidden rounded-3xl hover-lift border border-white/10">
+                    <img src="images/1.jpg" alt="Андрей Родионов" class="w-full h-full object-cover object-[50%_20%] scale-105 transition-transform duration-500 hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent"></div>
                     <div class="absolute top-1/4 right-0 w-16 h-24 bg-red opacity-60 art-overlay"></div>
                 </div>
                 
                 <div class="space-y-8 text-lg leading-[1.8]">
                     <p class="font-space text-3xl md:text-5xl font-light text-white hover-lift" style="letter-spacing: -0.01em;">
-                        Закрытый клуб — это пространство для глубокого исследования внутреннего мира через призму психотерапии и искусства.
+                        О КЛУБЕ
                     </p>
                     <p class="text-white text-base md:text-lg hover-lift" style="line-height: 1.9; font-weight: 400;">
-                        Здесь мы говорим о том, что обычно остаётся за словами: о чувствах, которые сложно выразить, о переживаниях, которые не укладываются в привычные рамки, о том внутреннем опыте, который формирует нашу реальность.
+                        Это не курс и не тренинг. Это — постоянное закрытое пространство, созданное психотерапевтом, где женщины учатся понимать мужчин глубже, чем они сами себя понимают.
                     </p>
                     <p class="text-white text-base md:text-lg hover-lift" style="line-height: 1.9;">
-                        Это не лекции и не тренинги. Это живой диалог, где каждый участник может поделиться своим опытом и услышать других. Где мы вместе исследуем границы понимания и находим новые способы говорить о самом важном.
+                        То, что мужчины редко проговаривают. То, что скрыто в поступках, в паузах, в молчании, в отказах, в выборе. То, что определяет отношения, но остаётся за словами.
+                    </p>
+                    <p class="text-white text-base md:text-lg hover-lift" style="line-height: 1.9;">
+                        Клуб — про ясность, зрелость и честное понимание мужских мотивов.
                     </p>
                 </div>
             </div>
@@ -670,18 +683,16 @@
                 <h2 class="font-space text-5xl md:text-8xl font-bold mb-16 hover-lift" style="letter-spacing: -0.02em;">ДЛЯ КОГО</h2>
                 
                 <div class="space-y-8 text-lg md:text-xl leading-[1.9] font-light">
-                    <p class="hover-lift">
-                        Для тех, кто ищет глубину в общении и готов исследовать свой внутренний мир.
+                    <p class="hover-lift text-2xl md:text-3xl font-semibold">
+                        Для женщин, которые:
                     </p>
-                    <p class="hover-lift" style="font-weight: 400;">
-                        Для тех, кому важно понимать не только себя, но и других людей через призму психологии и искусства.
-                    </p>
-                    <p class="hover-lift">
-                        Для тех, кто устал от поверхностных разговоров и хочет найти пространство для настоящего диалога.
-                    </p>
-                    <p class="hover-lift">
-                        Для тех, кто готов к честности и открытости в безопасной, поддерживающей атмосфере.
-                    </p>
+                    <div class="space-y-4 text-base md:text-lg">
+                        <p class="hover-lift">• ценят интеллектуальную глубину и профессиональный взгляд</p>
+                        <p class="hover-lift">• хотят понимать мужскую психику не через советы подруг, а через опыт терапевта</p>
+                        <p class="hover-lift">• устали от хаоса, догадок и противоречивых сигналов</p>
+                        <p class="hover-lift">• хотят перестать угадывать — и начать видеть</p>
+                        <p class="hover-lift">• готовы к взрослому разговору о мужчинах и о себе</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -700,7 +711,7 @@
     <div class="section-divider"></div>
     
     <!-- WHAT MAKES IT DIFFERENT -->
-    <section class="min-h-screen flex items-center py-20 px-4 md:px-8 bg-red relative overflow-hidden">
+    <section class="min-h-screen flex items-center py-20 px-4 md:px-8 bg-red relative overflow-hidden selection-teal">
         <!-- Art element - abstract silhouette with face fragment -->
         <div class="absolute right-0 top-0 bottom-0 w-2/5 img-placeholder opacity-25 face-fragment">
             <div class="absolute inset-0 flex items-center justify-center">
@@ -715,24 +726,29 @@
             <div class="absolute top-1/4 left-1/4 w-24 h-24 bg-gradient-to-br from-gray-800 to-black rounded-full opacity-40"></div>
         </div>
         
+        <!-- Photo overlay -->
+        <div class="absolute inset-y-0 right-0 hidden lg:flex w-[32rem] items-stretch justify-end pointer-events-none z-0">
+            <div class="relative h-full w-full">
+                <img src="images/2.jpg" alt="Андрей Родионов" class="h-full w-full object-cover shadow-2xl">
+                <div class="absolute inset-0 bg-teal/30 mix-blend-color"></div>
+            </div>
+        </div>
+        
         <div class="max-w-6xl mx-auto w-full relative z-10">
-            <div class="max-w-2xl">
-                <h2 class="font-space text-5xl md:text-8xl font-bold text-white mb-16 hover-lift" style="letter-spacing: -0.02em;">ЧЕМ ОТЛИЧАЕТСЯ</h2>
-                
-                <div class="space-y-10 text-white text-lg md:text-xl leading-[1.9] font-light">
-                    <p class="hover-lift">
-                        Это не образовательный проект в привычном смысле. Здесь нет готовых ответов и универсальных рецептов.
-                    </p>
-                    <p class="hover-lift">
-                        Вместо этого — пространство для исследования, где каждый вопрос важен, а каждый ответ рождается в диалоге.
-                    </p>
-                    <p class="hover-lift" style="font-weight: 400;">
-                        Мы не учим, как жить правильно. Мы создаём условия, чтобы каждый мог найти свой собственный путь к пониманию.
-                    </p>
-                    <p class="hover-lift">
-                        Искусство здесь — не иллюстрация, а полноценный язык, на котором можно говорить о том, что сложно выразить словами.
-                    </p>
-                </div>
+            <h2 class="font-space text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-10 hover-lift leading-none" style="letter-spacing: -0.02em; text-transform: uppercase;">
+                ЧЕМ ЭТОТ КЛУБ<br>
+                ОТЛИЧАЕТСЯ<br>
+                ОТ ДРУГИХ
+            </h2>
+            
+            <div class="space-y-8 text-white text-base md:text-lg leading-relaxed font-light max-w-2xl">
+                <p class="hover-lift no-margin">• Он создан практикующим психотерапевтом, а не коучем или инфоблогером.</p>
+                <p class="hover-lift no-margin">• В центре — мужская психология, рабочие механизмы, реальные паттерны поведения.</p>
+                <p class="hover-lift no-margin">• Бессмысленные советы «будь мудрее», «будь тише», «будь хитрее» здесь отсутствуют.</p>
+                <p class="hover-lift no-margin">• Всё основано на наблюдениях, десятках историй клиентов, динамике реальных отношений.</p>
+                <p class="hover-lift no-margin" style="font-weight: 400;">
+                    Здесь вы не учитесь «манипулировать» — вы учитесь понимать.
+                </p>
             </div>
         </div>
     </section>
@@ -755,7 +771,6 @@
                         <div class="w-28 h-28 bg-teal rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                             <div class="w-20 h-20 bg-white opacity-20 rounded-full"></div>
                         </div>
-                        <!-- Small art element - face fragment -->
                         <div class="absolute -top-2 -right-2 w-12 h-12 img-placeholder opacity-60 rounded-full overflow-hidden">
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <div class="w-8 h-8 bg-gradient-to-br from-gray-700 to-black rounded-full"></div>
@@ -763,8 +778,7 @@
                         </div>
                     </div>
                     <div class="flex-1 space-y-4">
-                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">Внутренний опыт</h3>
-                        <p class="text-white text-base md:text-lg leading-relaxed">Как мы переживаем эмоции, как формируются наши чувства, что происходит внутри, когда мы сталкиваемся с жизненными вызовами.</p>
+                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">• Почему мужчина делает одно, а говорит другое</h3>
                     </div>
                 </div>
                 
@@ -774,12 +788,10 @@
                         <div class="w-28 h-28 bg-red rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                             <div class="w-14 h-14 bg-white opacity-20 rotate-45"></div>
                         </div>
-                        <!-- Geometric texture -->
                         <div class="absolute -bottom-2 -left-2 w-10 h-10 border-2 border-white opacity-30"></div>
                     </div>
                     <div class="flex-1 space-y-4">
-                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">Отношения</h3>
-                        <p class="text-white text-base md:text-lg leading-relaxed">Как мы строим связи с другими, что мешает и что помогает в общении, как понимать и быть понятым.</p>
+                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">• Как отличить эмоциональную незрелость от реальной любви</h3>
                     </div>
                 </div>
                 
@@ -789,12 +801,10 @@
                         <div class="w-28 h-28 bg-deep-blue rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                             <div class="w-20 h-20 border-2 border-white opacity-30"></div>
                         </div>
-                        <!-- Circle accent -->
                         <div class="absolute top-0 right-0 w-6 h-6 bg-white opacity-20 rounded-full"></div>
                     </div>
                     <div class="flex-1 space-y-4">
-                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">Идентичность</h3>
-                        <p class="text-white text-base md:text-lg leading-relaxed">Кто мы на самом деле, как формируется наше представление о себе, что значит быть собой в современном мире.</p>
+                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">• Почему он возвращается — и почему снова уходит</h3>
                     </div>
                 </div>
                 
@@ -804,12 +814,36 @@
                         <div class="w-28 h-28 bg-light-blue rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                             <div class="w-20 h-20 bg-white opacity-20 rotate-45"></div>
                         </div>
-                        <!-- Texture element -->
                         <div class="absolute -top-1 -left-1 w-8 h-8 border border-white opacity-25 rotate-45"></div>
                     </div>
                     <div class="flex-1 space-y-4">
-                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">Творчество и смысл</h3>
-                        <p class="text-white text-base md:text-lg leading-relaxed">Как искусство помогает понимать себя, где искать смысл, как творчество становится способом исследования внутреннего мира.</p>
+                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">• Как понять, что у него кризис, а что — потеря интереса</h3>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="flex gap-8 items-start group">
+                    <div class="flex-shrink-0 relative">
+                        <div class="w-28 h-28 bg-purple-600 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                            <div class="w-14 h-14 border-2 border-white opacity-30 rounded-full"></div>
+                        </div>
+                        <div class="absolute -bottom-2 right-0 w-10 h-10 bg-white opacity-20 rounded-full"></div>
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">• Как читать действия, когда слова ничего не значат</h3>
+                    </div>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="flex gap-8 items-start group">
+                    <div class="flex-shrink-0 relative">
+                        <div class="w-28 h-28 bg-amber-500 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                            <div class="w-16 h-16 bg-white opacity-20 rounded-full"></div>
+                        </div>
+                        <div class="absolute top-0 left-0 w-8 h-8 border border-white opacity-25"></div>
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">• Почему он молчит, избегает, обесценивает или защищается</h3>
                     </div>
                 </div>
             </div>
@@ -826,18 +860,17 @@
         <div class="absolute bottom-20 left-20 w-24 h-24 bg-white opacity-5 geo-hover"></div>
         
         <div class="max-w-6xl mx-auto w-full relative z-10">
-            <h2 class="font-space text-5xl md:text-8xl font-bold text-white mb-20 hover-lift" style="letter-spacing: -0.02em;">ФОРМАТ</h2>
+            <h2 class="font-space text-5xl md:text-8xl font-bold text-white mb-10 hover-lift" style="letter-spacing: -0.02em;">ФОРМАТ</h2>
             
-            <div class="space-y-14 text-white text-lg md:text-xl leading-[1.9] max-w-3xl font-light">
-                <p class="hover-lift">
-                    Встречи проходят в закрытом формате для ограниченного круга участников. Каждая встреча — это 2-3 часа глубокого диалога, где мы исследуем конкретную тему через призму психотерапии и искусства.
-                </p>
-                <p class="hover-lift" style="font-weight: 400;">
-                    Участники могут делиться своим опытом, задавать вопросы, участвовать в обсуждении. Никаких обязательных заданий или домашних работ — только живое общение и исследование.
-                </p>
-                <p class="hover-lift">
-                    Все встречи проходят онлайн, что позволяет участвовать из любой точки мира. Группа формируется заранее, чтобы обеспечить атмосферу доверия и открытости.
-                </p>
+            <div class="space-y-6 text-white text-lg md:text-xl leading-relaxed max-w-3xl font-light">
+                <p class="hover-lift">• Закрытый канал с регулярными аналитическими разборами</p>
+                <p class="hover-lift">• Еженедельные живые встречи с Андреем Родионовым</p>
+                <p class="hover-lift">• Разборы реальных ситуаций участниц</p>
+                <p class="hover-lift">• Ответы на личные вопросы «между строк»</p>
+                <p class="hover-lift">• Мини-лекции о мужской психике</p>
+                <p class="hover-lift">• Поддерживающее профессиональное сообщество</p>
+                <p class="hover-lift">Количество мест ограничено.</p>
+                <p class="hover-lift text-2xl font-semibold">Вход — только через собеседование.</p>
             </div>
         </div>
     </section>
@@ -903,7 +936,7 @@
                     <div class="input-line"></div>
                 </div>
                 <div class="input-wrapper input-field">
-                    <input type="text" name="telegram" id="telegram" placeholder="Telegram" required>
+                    <input type="tel" name="phone" id="phone" placeholder="Телефон" required>
                     <div class="input-line"></div>
                 </div>
                 <div class="input-wrapper textarea-field">
@@ -916,6 +949,9 @@
             </form>
             <div id="success-message" class="hidden mt-6 text-teal text-center">
                 Заявка отправлена. Мы свяжемся с вами.
+            </div>
+            <div id="error-message" class="hidden mt-6 text-red text-center">
+                Ошибка при отправке заявки. Попробуйте еще раз.
             </div>
         </div>
     </div>
@@ -1206,6 +1242,8 @@
             const modal = document.getElementById('modal');
             const form = document.getElementById('application-form');
             const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+            const submitButton = form.querySelector('button[type="submit"]');
             
             gsap.to('.modal-content', {
                 scale: 0.9,
@@ -1218,34 +1256,88 @@
                     form.reset();
                     form.style.display = 'block';
                     successMessage.classList.add('hidden');
+                    errorMessage.classList.add('hidden');
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Отправить';
                 }
             });
         }
         
-        function handleSubmit(event) {
+        async function handleSubmit(event) {
             event.preventDefault();
             const form = event.target;
             const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+            const submitButton = form.querySelector('button[type="submit"]');
             
-            // Animate form out
-            gsap.to(form, {
-                y: -20,
-                duration: 0.3,
-                onComplete: () => {
-                    form.style.display = 'none';
-                    successMessage.classList.remove('hidden');
-                    gsap.from(successMessage, {
-                        scale: 0.8,
-                        duration: 0.4,
-                        ease: 'back.out(1.7)'
+            // Скрываем предыдущие сообщения
+            successMessage.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+            
+            // Получаем данные формы
+            const formData = {
+                name: document.getElementById('name').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                message: document.getElementById('message').value.trim()
+            };
+            
+            // Блокируем кнопку отправки
+            const originalButtonText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Отправка...';
+            
+            try {
+                // Отправляем данные на сервер
+                const response = await fetch('http://localhost:3000/api/submit-application', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Успешная отправка
+                    gsap.to(form, {
+                        y: -20,
+                        duration: 0.3,
+                        onComplete: () => {
+                            form.style.display = 'none';
+                            successMessage.classList.remove('hidden');
+                            gsap.from(successMessage, {
+                                scale: 0.8,
+                                duration: 0.4,
+                                ease: 'back.out(1.7)'
+                            });
+                        }
                     });
+                    
+                    // Auto close after 3 seconds
+                    setTimeout(() => {
+                        closeModal();
+                    }, 3000);
+                } else {
+                    // Ошибка от сервера
+                    throw new Error(data.error || 'Ошибка при отправке заявки');
                 }
-            });
-            
-            // Auto close after 3 seconds
-            setTimeout(() => {
-                closeModal();
-            }, 3000);
+            } catch (error) {
+                console.error('Ошибка при отправке заявки:', error);
+                
+                // Показываем сообщение об ошибке
+                errorMessage.textContent = error.message || 'Ошибка при отправке заявки. Убедитесь, что сервер запущен.';
+                errorMessage.classList.remove('hidden');
+                gsap.from(errorMessage, {
+                    scale: 0.8,
+                    duration: 0.4,
+                    ease: 'back.out(1.7)'
+                });
+                
+                // Разблокируем кнопку
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
         }
         
         // Close modal on outside click
