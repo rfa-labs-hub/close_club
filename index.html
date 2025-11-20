@@ -19,14 +19,13 @@
     
     <style>
         :root {
-            --teal: #05B5A3;
-            --red: #D7263D;
-            --black: #0D0D0D;
+            --dark: #262533;
+            --accent-cool: #A1B3CF;
+            --accent-red: #D12C2E;
+            --accent-orange: #D26B41;
+            --neutral-light: #E5E3E4;
+            --accent-warm: #86699C;
             --white: #FFFFFF;
-            --deep-blue: #1F2428;
-            --light-blue: #F4EDE4;
-            --beige: #F4EDE4;
-            --graphite: #1F2428;
         }
         
         * {
@@ -38,7 +37,7 @@
         body {
             font-family: 'Inter Tight', sans-serif;
             overflow-x: hidden;
-            background: var(--black);
+            background: var(--dark);
             color: var(--white);
         }
         
@@ -46,20 +45,20 @@
             font-family: 'Space Grotesk', sans-serif;
         }
         
-        .text-red { color: var(--red); }
-        .text-teal { color: var(--teal); }
-        .text-deep-blue { color: var(--deep-blue); }
-        .text-light-blue { color: var(--light-blue); }
-        .text-beige { color: var(--beige); }
-        .text-graphite { color: var(--graphite); }
+        .text-red { color: var(--accent-red); }
+        .text-teal { color: var(--accent-cool); }
+        .text-deep-blue { color: var(--accent-warm); }
+        .text-light-blue { color: var(--neutral-light); }
+        .text-beige { color: var(--neutral-light); }
+        .text-graphite { color: var(--dark); }
         
-        .bg-red { background-color: var(--red); }
-        .bg-teal { background-color: var(--teal); }
-        .bg-deep-blue { background-color: var(--deep-blue); }
-        .bg-light-blue { background-color: var(--light-blue); }
-        .bg-beige { background-color: var(--beige); }
-        .bg-graphite { background-color: var(--graphite); }
-        .bg-black { background-color: var(--black) !important; }
+        .bg-red { background-color: var(--accent-red); }
+        .bg-teal { background-color: var(--accent-cool); }
+        .bg-deep-blue { background-color: var(--accent-warm); }
+        .bg-light-blue { background-color: var(--neutral-light); }
+        .bg-beige { background-color: var(--neutral-light); }
+        .bg-graphite { background-color: var(--dark); }
+        .bg-black { background-color: var(--dark) !important; }
         
         /* Swirl texture effect */
         .swirl-bg {
@@ -67,7 +66,7 @@
                 radial-gradient(ellipse at 20% 30%, rgba(46, 198, 190, 0.4) 0%, transparent 60%),
                 radial-gradient(ellipse at 80% 70%, rgba(234, 47, 47, 0.25) 0%, transparent 60%),
                 radial-gradient(ellipse at 50% 50%, rgba(12, 42, 109, 0.15) 0%, transparent 70%),
-                var(--teal);
+                var(--accent-cool);
             position: relative;
         }
         
@@ -178,7 +177,7 @@
         }
         
         input:focus, textarea:focus {
-            border-bottom-color: var(--teal);
+            border-bottom-color: var(--accent-cool);
         }
         
         input::placeholder,
@@ -227,7 +226,7 @@
             left: 0;
             height: 2px;
             width: 0;
-            background: var(--teal);
+            background: var(--accent-cool);
             transition: width 0.4s ease;
         }
         
@@ -237,7 +236,7 @@
         }
         
         .btn-primary {
-            background: var(--red);
+            background: var(--accent-red);
             color: #fff;
             border: none;
             padding: 1rem 2rem;
@@ -277,12 +276,12 @@
         
         /* Selection color */
         ::selection {
-            background: var(--red);
+            background: var(--accent-red);
             color: #fff;
         }
         
         .selection-teal ::selection {
-            background: var(--teal);
+            background: var(--accent-cool);
             color: #000;
         }
         
@@ -297,7 +296,7 @@
         }
         
         ::-webkit-scrollbar-thumb {
-            background: var(--red);
+            background: var(--accent-red);
             border-radius: 5px;
             transition: background 0.3s ease;
         }
@@ -309,14 +308,14 @@
         /* Firefox scrollbar */
         * {
             scrollbar-width: thin;
-            scrollbar-color: var(--red) #000;
+            scrollbar-color: var(--accent-red) var(--dark);
         }
         
         /* Custom Cursor */
         .cursor {
             width: 20px;
             height: 20px;
-            border: 2px solid var(--red);
+            border: 2px solid var(--accent-red);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
@@ -358,7 +357,7 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: var(--red);
+            background: var(--accent-red);
             z-index: 9998;
             transform-origin: left;
         }
@@ -556,16 +555,20 @@
         }
         
         /* Скрываем плавающую кнопку на десктопе тоже */
+        .about-art-wrapper {
+            display: none;
+        }
+        
+        @media (min-width: 1024px) {
+            .about-art-wrapper {
+                display: flex;
+            }
+        }
+        
         .floating-btn.hide-on-scroll {
             opacity: 0 !important;
             transform: translateY(20px) !important;
             pointer-events: none;
-        }
-        
-        @media (max-width: 1024px) {
-            .about-art-wrapper {
-                display: none !important;
-            }
         }
         }
     </style>
@@ -644,7 +647,7 @@
     <section class="min-h-screen flex items-center py-20 px-4 md:px-8 bg-black">
         <div class="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-0 items-stretch">
             <!-- Left: Colored rectangle -->
-            <div class="about-art-wrapper hidden lg:flex h-full min-h-[700px] bg-red relative items-center justify-center liquid-texture about-art">
+            <div class="about-art-wrapper h-full min-h-[700px] bg-red relative items-center justify-center liquid-texture about-art">
                 <div class="absolute inset-0 flex items-center justify-center">
                     <div class="w-40 h-40 bg-white opacity-15 rounded-full hover-lift"></div>
                 </div>
