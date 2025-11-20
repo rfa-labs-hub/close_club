@@ -19,12 +19,13 @@
     
     <style>
         :root {
-            --dark: #262533;
-            --accent-cool: #A1B3CF;
-            --accent-red: #D12C2E;
-            --accent-orange: #D26B41;
-            --neutral-light: #E5E3E4;
-            --accent-warm: #86699C;
+            --dark: #0E0E0E;
+            --graphite: #1A1A1A;
+            --accent-wine: #4A1F2D;
+            --accent-champagne: #CBBFA0;
+            --accent-gold: #D8C7A1;
+            --accent-amaranth: #86699C;
+            --neutral-ivory: #FAF7F1;
             --white: #FFFFFF;
         }
         
@@ -45,19 +46,19 @@
             font-family: 'Space Grotesk', sans-serif;
         }
         
-        .text-red { color: var(--accent-red); }
-        .text-teal { color: var(--accent-cool); }
-        .text-deep-blue { color: var(--accent-warm); }
-        .text-light-blue { color: var(--neutral-light); }
-        .text-beige { color: var(--neutral-light); }
-        .text-graphite { color: var(--dark); }
+        .text-red { color: var(--accent-wine); }
+        .text-teal { color: var(--accent-champagne); }
+        .text-deep-blue { color: var(--accent-amaranth); }
+        .text-light-blue { color: var(--neutral-ivory); }
+        .text-beige { color: var(--neutral-ivory); }
+        .text-graphite { color: var(--graphite); }
         
-        .bg-red { background-color: var(--accent-red); }
-        .bg-teal { background-color: var(--accent-cool); }
-        .bg-deep-blue { background-color: var(--accent-warm); }
-        .bg-light-blue { background-color: var(--neutral-light); }
-        .bg-beige { background-color: var(--neutral-light); }
-        .bg-graphite { background-color: var(--dark); }
+        .bg-red { background-color: var(--accent-wine); }
+        .bg-teal { background-color: var(--accent-champagne); }
+        .bg-deep-blue { background-color: var(--accent-amaranth); }
+        .bg-light-blue { background-color: var(--neutral-ivory); }
+        .bg-beige { background-color: var(--neutral-ivory); }
+        .bg-graphite { background-color: var(--graphite); }
         .bg-black { background-color: var(--dark) !important; }
         
         /* Swirl texture effect */
@@ -66,7 +67,7 @@
                 radial-gradient(ellipse at 20% 30%, rgba(46, 198, 190, 0.4) 0%, transparent 60%),
                 radial-gradient(ellipse at 80% 70%, rgba(234, 47, 47, 0.25) 0%, transparent 60%),
                 radial-gradient(ellipse at 50% 50%, rgba(12, 42, 109, 0.15) 0%, transparent 70%),
-                var(--accent-cool);
+                var(--accent-champagne);
             position: relative;
         }
         
@@ -177,7 +178,7 @@
         }
         
         input:focus, textarea:focus {
-            border-bottom-color: var(--accent-cool);
+            border-bottom-color: var(--accent-champagne);
         }
         
         input::placeholder,
@@ -226,7 +227,7 @@
             left: 0;
             height: 2px;
             width: 0;
-            background: var(--accent-cool);
+            background: var(--accent-champagne);
             transition: width 0.4s ease;
         }
         
@@ -236,7 +237,7 @@
         }
         
         .btn-primary {
-            background: var(--accent-red);
+            background: var(--accent-wine);
             color: #fff;
             border: none;
             padding: 1rem 2rem;
@@ -247,7 +248,7 @@
         }
         
         .btn-primary:hover {
-            background: #c72525;
+            background: #6F1A1A;
             transform: translateY(-2px);
         }
         
@@ -276,12 +277,12 @@
         
         /* Selection color */
         ::selection {
-            background: var(--accent-red);
+            background: var(--accent-wine);
             color: #fff;
         }
         
         .selection-teal ::selection {
-            background: var(--accent-cool);
+            background: var(--accent-champagne);
             color: #000;
         }
         
@@ -296,7 +297,7 @@
         }
         
         ::-webkit-scrollbar-thumb {
-            background: var(--accent-red);
+            background: var(--accent-wine);
             border-radius: 5px;
             transition: background 0.3s ease;
         }
@@ -308,14 +309,14 @@
         /* Firefox scrollbar */
         * {
             scrollbar-width: thin;
-            scrollbar-color: var(--accent-red) var(--dark);
+            scrollbar-color: var(--accent-wine) var(--dark);
         }
         
         /* Custom Cursor */
         .cursor {
             width: 20px;
             height: 20px;
-            border: 2px solid var(--accent-red);
+            border: 2px solid var(--accent-wine);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
@@ -357,7 +358,7 @@
             top: 0;
             left: 0;
             height: 3px;
-            background: var(--accent-red);
+            background: var(--accent-wine);
             z-index: 9998;
             transform-origin: left;
         }
@@ -626,12 +627,12 @@
         
         <!-- Content -->
         <div class="relative z-10 text-center px-4">
-            <h1 class="font-space text-huge font-bold text-white mb-6 hoverable" id="hero-title" style="letter-spacing: -0.02em;">
+            <p class="font-space text-lg md:text-xl text-white uppercase tracking-[0.4em] mb-4 hoverable" id="hero-subtitle">
                 ЗАКРЫТЫЙ КЛУБ
-            </h1>
-            <p class="font-space text-2xl md:text-3xl lg:text-4xl text-white mb-4 hoverable" id="hero-subtitle" style="font-style: italic; font-weight: 300;">
-                «То, что остаётся за словами»
             </p>
+            <h1 class="font-space text-[clamp(3.5rem,8vw,8rem)] font-bold text-white mb-6 hoverable" id="hero-title" style="letter-spacing: -0.03em; text-transform: uppercase;">
+                ТО, ЧТО ОСТАЕТСЯ ЗА СЛОВАМИ
+            </h1>
             <p class="text-sm md:text-base text-white mb-12 hoverable" id="hero-author" style="letter-spacing: 0.1em;">
                 Автор: Андрей Родионов, психотерапевт
             </p>
@@ -664,7 +665,7 @@
             <div class="bg-black p-12 md:p-16 flex flex-col justify-center space-y-12">
                 <!-- Image with author -->
                 <div class="relative h-80 mb-4 overflow-hidden rounded-3xl hover-lift border border-white/10">
-                    <img src="images/1.jpg" alt="Андрей Родионов" class="w-full h-full object-cover object-[50%_20%] scale-105 transition-transform duration-500 hover:scale-110">
+                    <img src="images/6.jpg" alt="Андрей Родионов" class="w-full h-full object-cover object-[50%_20%] scale-105 transition-transform duration-500 hover:scale-110">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent"></div>
                     <div class="absolute top-1/4 right-0 w-16 h-24 bg-red opacity-60 art-overlay"></div>
                 </div>
@@ -742,7 +743,7 @@
         <!-- Photo overlay -->
         <div class="absolute inset-y-0 right-0 hidden lg:flex w-[32rem] items-stretch justify-end pointer-events-none z-0">
             <div class="relative h-full w-full">
-                <img src="images/2.jpg" alt="Андрей Родионов" class="h-full w-full object-cover shadow-2xl">
+                <img src="images/5.jpg" alt="Андрей Родионов" class="h-full w-full object-cover shadow-2xl">
                 <div class="absolute inset-0 bg-teal/30 mix-blend-color"></div>
             </div>
         </div>
@@ -750,7 +751,7 @@
         <div class="max-w-6xl mx-auto w-full relative z-10">
             <div class="block lg:hidden w-full mb-10 -mx-4 sm:mx-0">
                 <div class="relative w-full h-[60vh] min-h-[320px]">
-                    <img src="images/2.jpg" alt="Андрей Родионов" class="w-full h-full object-cover">
+                    <img src="images/5.jpg" alt="Андрей Родионов" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-teal/25 mix-blend-color"></div>
                 </div>
             </div>
@@ -843,10 +844,10 @@
                 <!-- Item 5 -->
                 <div class="flex gap-8 items-start group">
                     <div class="flex-shrink-0 relative">
-                        <div class="w-28 h-28 bg-purple-600 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                            <div class="w-14 h-14 border-2 border-white opacity-30 rounded-full"></div>
+                        <div class="w-28 h-28 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background-color: var(--accent-amaranth);">
+                            <div class="w-14 h-14 rounded-full" style="border: 2px solid rgba(255,255,255,0.4);"></div>
                         </div>
-                        <div class="absolute -bottom-2 right-0 w-10 h-10 bg-white opacity-20 rounded-full"></div>
+                        <div class="absolute -bottom-2 right-0 w-10 h-10" style="background-color: rgba(250,247,241,0.25); border-radius: 9999px;"></div>
                     </div>
                     <div class="flex-1 space-y-4">
                         <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">• Как читать действия, когда слова ничего не значат</h3>
@@ -856,10 +857,10 @@
                 <!-- Item 6 -->
                 <div class="flex gap-8 items-start group">
                     <div class="flex-shrink-0 relative">
-                        <div class="w-28 h-28 bg-amber-500 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                            <div class="w-16 h-16 bg-white opacity-20 rounded-full"></div>
+                        <div class="w-28 h-28 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background-color: var(--accent-gold);">
+                            <div class="w-16 h-16" style="background-color: rgba(26,26,26,0.15); border-radius: 9999px;"></div>
                         </div>
-                        <div class="absolute top-0 left-0 w-8 h-8 border border-white opacity-25"></div>
+                        <div class="absolute top-0 left-0 w-8 h-8" style="border: 1px solid rgba(248,244,237,0.3);"></div>
                     </div>
                     <div class="flex-1 space-y-4">
                         <h3 class="font-space text-2xl md:text-3xl text-white font-semibold">• Почему он молчит, избегает, обесценивает или защищается</h3>
