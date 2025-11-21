@@ -553,6 +553,19 @@
                 min-height: auto !important;
                 line-height: 1.5 !important;
             }
+
+            .about-heading {
+                margin-bottom: 1.5rem !important;
+            }
+
+            .space-y-4 > :not([hidden]) ~ :not([hidden]),
+            .space-y-6 > :not([hidden]) ~ :not([hidden]),
+            .space-y-8 > :not([hidden]) ~ :not([hidden]),
+            .space-y-10 > :not([hidden]) ~ :not([hidden]),
+            .space-y-12 > :not([hidden]) ~ :not([hidden]),
+            .space-y-16 > :not([hidden]) ~ :not([hidden]) {
+                margin-top: 1.5rem !important;
+            }
         }
         
         /* Скрываем плавающую кнопку на десктопе тоже */
@@ -672,7 +685,7 @@
                 </div>
                 
                 <div class="space-y-8 text-lg leading-[1.8]">
-                    <p class="font-space text-3xl md:text-5xl font-light text-white hover-lift" style="letter-spacing: -0.01em;">
+                    <p class="font-space text-3xl md:text-5xl font-light text-white hover-lift about-heading" style="letter-spacing: -0.01em;">
                         О КЛУБЕ
                     </p>
                     <div class="space-y-6 text-white text-base md:text-lg hover-lift" style="line-height: 1.9; font-weight: 400;">
@@ -892,7 +905,6 @@
                 <p class="hover-lift">• Поддерживающее профессиональное сообщество</p>
                 <p class="hover-lift">Количество мест ограничено.</p>
                 <p class="hover-lift text-2xl font-semibold">Вход только через собеседование.</p>
-                <p class="hover-lift">После одобрения вы получите приглашение в закрытую группу</p>
             </div>
         </div>
     </section>
@@ -934,7 +946,7 @@
                         <div class="w-32 h-32 mx-auto bg-deep-blue rounded-full flex items-center justify-center geo-hover">
                             <div class="w-24 h-24 bg-white opacity-20 rounded-full"></div>
                         </div>
-                        <p class="text-white mt-8">Приглашение в закрытую группу</p>
+                        <p class="text-white mt-8">После одобрения вы получите приглашение в закрытую группу</p>
                     </div>
                 </div>
             </div>
@@ -957,7 +969,7 @@
             </p>
             <div class="flex items-center gap-6">
                 <a href="https://vk.com/rodionoff78" target="_blank" rel="noopener noreferrer" class="opacity-70 hover:opacity-100 transition-opacity duration-300 hover-lift flex items-center justify-center" aria-label="ВКонтакте">
-                    <img src="images/vk.png" alt="VK" class="w-6 h-6 brightness-0 invert">
+                    <img src="images/vk2.svg" alt="VK" class="w-6 h-6">
                 </a>
                 <a href="https://t.me/rodionov_help" target="_blank" rel="noopener noreferrer" class="text-white/70 hover:text-white transition-colors duration-300 hover-lift" aria-label="Telegram">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
