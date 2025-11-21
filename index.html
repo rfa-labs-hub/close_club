@@ -401,6 +401,10 @@
             margin: 0;
         }
 
+        .text-block p {
+            margin: 0;
+        }
+
         /* Enhanced form */
         
         /* Face fragment styles */
@@ -558,13 +562,8 @@
                 margin-bottom: 1.5rem !important;
             }
 
-            .space-y-4 > :not([hidden]) ~ :not([hidden]),
-            .space-y-6 > :not([hidden]) ~ :not([hidden]),
-            .space-y-8 > :not([hidden]) ~ :not([hidden]),
-            .space-y-10 > :not([hidden]) ~ :not([hidden]),
-            .space-y-12 > :not([hidden]) ~ :not([hidden]),
-            .space-y-16 > :not([hidden]) ~ :not([hidden]) {
-                margin-top: 1.5rem !important;
+            .text-block p + p {
+                margin-top: 1.25rem !important;
             }
         }
         
@@ -684,7 +683,7 @@
                     <div class="absolute top-1/4 right-0 w-16 h-24 bg-red opacity-60 art-overlay"></div>
                 </div>
                 
-                <div class="space-y-8 text-lg leading-[1.8]">
+                <div class="space-y-8 text-lg leading-[1.8] text-block">
                     <p class="font-space text-3xl md:text-5xl font-light text-white hover-lift about-heading" style="letter-spacing: -0.01em;">
                         О КЛУБЕ
                     </p>
@@ -710,7 +709,7 @@
             <div class="max-w-lg mx-auto space-y-10 text-white">
                 <h2 class="font-space text-5xl md:text-8xl font-bold mb-16 hover-lift" style="letter-spacing: -0.02em;">ДЛЯ КОГО</h2>
                 
-                <div class="space-y-8 text-lg md:text-xl leading-[1.9] font-light">
+                <div class="space-y-8 text-lg md:text-xl leading-[1.9] font-light text-block">
                     <p class="font-space text-3xl md:text-5xl font-light text-white hover-lift uppercase" style="letter-spacing: -0.01em;">
                         ДЛЯ ЖЕНЩИН, КОТОРЫЕ:
                     </p>
@@ -775,7 +774,7 @@
                 ОТ ДРУГИХ
             </h2>
             
-            <div class="space-y-8 text-white text-base md:text-lg leading-relaxed font-light max-w-2xl">
+            <div class="space-y-8 text-white text-base md:text-lg leading-relaxed font-light max-w-2xl text-block">
                 <p class="hover-lift no-margin">• Он создан практикующим психотерапевтом, а не коучем или инфоблогером.</p>
                 <p class="hover-lift no-margin">• В его центре мужская психология, рабочие механизмы, реальные паттерны поведения.</p>
                 <p class="hover-lift no-margin">• Бессмысленные советы «будь мудрее», «будь тише», «будь хитрее» здесь отсутствуют.</p>
@@ -896,7 +895,7 @@
         <div class="max-w-6xl mx-auto w-full relative z-10">
             <h2 class="font-space text-5xl md:text-8xl font-bold text-white mb-10 hover-lift" style="letter-spacing: -0.02em;">ФОРМАТ</h2>
             
-            <div class="space-y-6 text-white text-lg md:text-xl leading-relaxed max-w-3xl font-light">
+            <div class="space-y-6 text-white text-lg md:text-xl leading-relaxed max-w-3xl font-light text-block">
                 <p class="hover-lift">• Закрытый канал с регулярными аналитическими разборами</p>
                 <p class="hover-lift">• Еженедельные живые встречи с Андреем Родионовым</p>
                 <p class="hover-lift">• Разборы реальных ситуаций участниц</p>
